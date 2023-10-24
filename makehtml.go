@@ -9,11 +9,8 @@ import (
 
 var tpl *template.Template
 
-func init() {
-	tpl = template.Must(template.ParseFiles("templates/format.gohtml"))
-}
-
 func MakeHtml(fileName string, key string, story Story) error {
+	tpl = template.Must(template.ParseFiles("templates/format.gohtml"))
 	if !strings.HasSuffix(fileName, ".html") {
 		return errors.New("file name isn't an html file")
 	}
