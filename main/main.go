@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	story, err := cyoa.ParseJson("../gopher.json")
+	story, err := cyoa.ParseJson("cyoa/templates/gopher.json")
 	if err != nil {
 		log.Fatal(err)
 	}

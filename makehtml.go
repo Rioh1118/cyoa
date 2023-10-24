@@ -25,7 +25,7 @@ func MakeHtml(fileName string, key string, story Story) error {
 	}
 	defer nf.Close()
 
-	err = tpl.ExecuteTemplate(nf, "format.gohtml", story[key])
+	err = tpl.ExecuteTemplate(nf, "templates/format.gohtml", story[key])
 	if err != nil {
 		return err
 	}
