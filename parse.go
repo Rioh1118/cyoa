@@ -28,6 +28,10 @@ type Sections struct {
 	Home      StoryArc `json:"home"`
 }
 
+func SectionsToSlice(sections Sections) []StoryArc {
+	return []StoryArc{sections.Intro, sections.NewYork, sections.Debate, sections.SeanKelly, sections.MarkBates, sections.Denver, sections.Home}
+}
+
 func ParseJson(filePath string) (Sections, error) {
 	if !strings.HasSuffix(filePath, ".json") {
 		return Sections{}, errors.New("the file isn't json file")
