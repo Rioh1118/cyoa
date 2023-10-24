@@ -2,7 +2,9 @@ package cyoa
 
 import (
 	"encoding/json"
+	"errors"
 	"os"
+	"strings"
 )
 
 type Option struct {
@@ -26,7 +28,10 @@ type Sections struct {
 	Home      StoryArc `json:"home"`
 }
 
-func parseJson(filePath string) (Sections, error) {
+func ParseJson(filePath string) (Sections, error) {
+	if !strings.HasSuffix(filePath, ".json") {
+		return Sections{}, errors.New("the file isn't json file")
+	}
 	file, err := os.Open(filePath)
 	if err != nil {
 		return Sections{}, nil
