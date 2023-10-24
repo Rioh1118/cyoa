@@ -12,40 +12,28 @@ type Option struct {
 	ArcDest string `json:"arc"`
 }
 
-type StoryArc struct {
+type Chapter struct {
 	Title   string   `json:"title"`
 	Story   []string `json:"story"`
 	Options []Option `json:"options"`
 }
 
-type Sections struct {
-	Intro     StoryArc `json:"intro"`
-	NewYork   StoryArc `json:"new-york"`
-	Debate    StoryArc `json:"debate"`
-	SeanKelly StoryArc `json:"sean-kelly"`
-	MarkBates StoryArc `json:"mark-bates"`
-	Denver    StoryArc `json:"denver"`
-	Home      StoryArc `json:"home"`
-}
+type Story map[string]Chapter
 
-func SectionsToSlice(sections Sections) []StoryArc {
-	return []StoryArc{sections.Intro, sections.NewYork, sections.Debate, sections.SeanKelly, sections.MarkBates, sections.Denver, sections.Home}
-}
-
-func ParseJson(filePath string) (Sections, error) {
+func ParseJson(filePath string) (Story, error) {
 	if !strings.HasSuffix(filePath, ".json") {
-		return Sections{}, errors.New("the file isn't json file")
+		return nil, errors.New("the file isn't json file")
 	}
 	file, err := os.Open(filePath)
 	if err != nil {
-		return Sections{}, nil
+		return nil, err
 	}
 	defer file.Close()
 
-	var sections Sections
+	var story Story
 	decoder := json.NewDecoder(file)
-	if err := decoder.Decode(&sections); err != nil {
-		return Sections{}, err
+	if err := decoder.Decode(&story); err != nil {
+		return nil, err
 	}
-	return sections, nil
+	return story, nil
 }
