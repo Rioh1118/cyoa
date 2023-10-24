@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link href="style.css" rel="stylesheet" />
+    <title></title>
+</head>
+
+<body>
+    <div id="content">
+        <h1>{{.Title}}</h1>
+        {{range .Story}}
+        <p>{{.}}<br></p>
+        {{end}}
+        <hr class="line">
+        <ul>
+            {{range .Options}}
+            <li>
+            <a href="/{{.ArcDest}}">{{.Text}}</a>
+            </li>
+            {{end}}
+        </ul>
+    </div>
+</body>
+</html>

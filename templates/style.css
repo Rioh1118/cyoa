@@ -1,0 +1,8 @@
+#content{
+    background-color: #FFFFEE;
+}
+
+hr.line{
+    border: none;
+    border-top: 1px dotted #999;
+}
