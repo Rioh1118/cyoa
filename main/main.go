@@ -19,4 +19,5 @@ func main() {
 		outFilePath := "../templates/" + k + ".html"
 		cyoa.MakeHtml(templatePath, outFilePath, v)
 	}
+
 }
