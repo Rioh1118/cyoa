@@ -3,15 +3,28 @@ package main
 import (
 	"fmt"
 	"log"
-
-	"github.com/Rioh1118/cyoa"
+	"os"
+	//"github.com/Rioh1118/cyoa"
 )
 
 func main() {
-	story, err := cyoa.ParseJson("cyoa/templates/gopher.json")
+	file, err := os.Open("../templates/format.gohtml")
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer file.Close()
 
-	fmt.Println(story)
+	buf := make([]byte, 1024)
+
+	for {
+		n, err := file.Read(buf)
+		if n == 0 {
+			break
+		}
+		if err != nil {
+			break
+		}
+		fmt.Println(string(buf[:n]))
+	}
+
 }

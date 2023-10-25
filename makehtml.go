@@ -10,21 +10,29 @@ import (
 var tpl *template.Template
 
 func MakeHtml(fileName string, key string, story Story) error {
-	tpl = template.Must(template.ParseFiles("templates/format.gohtml"))
+	// 指定されたファイル名が.htmlで終わっているかを確認
 	if !strings.HasSuffix(fileName, ".html") {
 		return errors.New("file name isn't an html file")
 	}
-	path := "templates/" + fileName
 
-	nf, err := os.Create(path)
+	// テンプレートのパスを指定
+	templatePath := "templates/format.gohtml"
+
+	// テンプレートをパース
+	tpl = template.Must(template.ParseFiles(templatePath))
+
+	// 出力ファイルを作成
+	outputFile, err := os.Create(fileName)
 	if err != nil {
 		return err
 	}
-	defer nf.Close()
+	defer outputFile.Close()
 
-	err = tpl.ExecuteTemplate(nf, "templates/format.gohtml", story[key])
+	// テンプレートを実行し、結果を出力ファイルに書き込む
+	err = tpl.ExecuteTemplate(outputFile, templatePath, story[key])
 	if err != nil {
 		return err
 	}
+
 	return nil
 }
