@@ -29,6 +29,7 @@ func MapHandler(story Story, dirPath string) http.HandlerFunc {
 				http.Error(w, "File not found", http.StatusNotFound)
 				return
 			}
+			defer file.Close()
 
 			_, err = io.Copy(w, file)
 			if err != nil {
