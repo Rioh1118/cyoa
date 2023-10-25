@@ -26,7 +26,7 @@ func MakeHtml(tempPath string, filePath string, chapter Chapter) error {
 	defer outputFile.Close()
 
 	// テンプレートを実行し、結果を出力ファイルに書き込む
-	err = tpl.ExecuteTemplate(outputFile, tempPath, chapter)
+	err = tpl.ExecuteTemplate(outputFile, "format.gohtml", chapter)
 	if err != nil {
 		return err
 	}
