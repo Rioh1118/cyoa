@@ -4,7 +4,6 @@ import (
 	"io"
 	"net/http"
 	"os"
-	"path/filepath"
 	"strings"
 )
 
@@ -23,17 +22,7 @@ func MapHandler(story Story, dirPath string) http.HandlerFunc {
 				http.NotFound(w, r)
 				return
 			}
-
-			// 拡張子を取得してMIMEタイプを設定
-			extension := filepath.Ext(path)
-			switch extension {
-			case ".html":
-				w.Header().Set("Content-Type", "text/html")
-			case ".css":
-				w.Header().Set("Content-Type", "text/css")
-			}
-
-			filePath := dirPath + "/" + path
+			filePath := dirPath + "/" + path + ".html"
 
 			file, err := os.Open(filePath)
 			if err != nil {
