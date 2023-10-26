@@ -10,7 +10,9 @@ import (
 func main() {
 	jsonPath := "../gopher.json"
 	templatePath := "../templates/format.gohtml"
+	cssDir := "../templates"
 
+	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir(cssDir))))
 	story, err := cyoa.ParseJson(jsonPath)
 	if err != nil {
 		log.Fatal(err)
