@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"net/http"
 
 	"github.com/Rioh1118/cyoa"
 )
@@ -20,4 +21,6 @@ func main() {
 		cyoa.MakeHtml(templatePath, outFilePath, v)
 	}
 
+	handleFunc := cyoa.MapHandler(story, "../templates")
+	http.ListenAndServe(":8080", handleFunc)
 }
